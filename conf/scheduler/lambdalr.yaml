@@ -1,0 +1,6 @@
+scheduler:
+  _target_: torch.optim.lr_scheduler.StepLR
+  step_size: 99999
+
+pytorch_lightning_params:
+  interval: epoch

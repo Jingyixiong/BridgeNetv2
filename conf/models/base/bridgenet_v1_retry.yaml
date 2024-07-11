@@ -1,0 +1,41 @@
+bridgenetv1:
+  _target_: models.bridgenet_v1_retry.BridgeNet
+
+  in_ch: 3             # x, y, z
+  n_cls: 5             # number of class
+  nsample_dict:
+    bnm_1: 16 
+    bnm_2: 32 
+    bnm_3: 64 
+    bnm_4: 96
+  block_n_dict:
+    bnm_1: 2
+    bnm_2: 2
+    bnm_3: 2
+    bnm_4: 2
+  in_ch_dict:
+    bnm_1: [8, 16] 
+    bnm_2: [32, 64]
+    bnm_3: [64, 128]
+    bnm_4: [128, 256]
+  out_ch_dict: 
+    bnm_1: [16, 32]
+    bnm_2: [64, 64] 
+    bnm_3: [128, 128] 
+    bnm_4: [256, 256]
+  m_dict:
+    bnm_1: 8
+    bnm_2: 8
+    bnm_3: 8
+    bnm_4: 8
+  radius_dict:
+    bnm_1: 0.2
+    bnm_2: 0.4
+    bnm_3: 0.6
+    bnm_4: 0.8
+
+  n_feature: 10
+  sampling_method: 'rs'                  # can be either 'rs'(random sampling) or 'fps'(farthest point sampling)
+  sampling_ratio: [4, 16, 32, 64]        # point sampling ratio
+  neigh_mode: 'ball_query'               # 'knn' or 'ball_query'
+  downsample: 'maxpooling'

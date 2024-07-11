@@ -1,0 +1,4 @@
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  factor: 0.9    # factor * lr = new_lr
+  

@@ -1,0 +1,41 @@
+general:
+  n_cls: 5                                  # Now there are five parts
+  seed: 16                                  # random seed for modules such as np.random
+  max_epochs: 150
+  default_root_dir: "./results"
+  n_training: "bridgenetv2"   # the name of the training   
+
+  backbone: 'bridgenetv2'                  # 'bridgenetv1', 'bridgenetv2'
+  
+  data_aug_flag: True
+  data_aug_dict: 
+    scale: [0.8, 1.25]             # Min and max scale factors 
+    shift: 0.1                     # The range of shift
+    rotation: 360                  # Degree
+  lr_method: True                  # True will let the optimizer and scheduler adjust lr, else Trainer will take care of it
+
+  # Dataset 
+  total_train_num: 500
+  total_test_num: 50
+  n_points: 65536                  # number of points to be used
+  data_root: "./data/syn_data"
+  train_bsize: 4
+  test_bsize: 4
+
+  # Inference
+  infer_bsize: 4
+  version_n: 'version_0'
+  best_model_n: 'best_miou.ckpt'
+
+defaults:
+  # - _self_
+  - models/base:      # bridgenetv1, bridgenetv2
+    - bridgenet_v2_nosampling             
+    - bridgenet_v1_retry
+  - loss: one_hot_loss
+  - optimizer: adam
+  - scheduler: exponentiallr
+  - callback: callbacks
+  - data: seg_dataloads_bridgenetv1
+  - metrics: semseg_metrics
+  - trainer: trainer

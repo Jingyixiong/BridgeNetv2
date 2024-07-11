@@ -1,0 +1,9 @@
+h5py==3.9.0
+hydra-core
+pandas
+torch-cluster       
+torch_geometric
+lightning==2.0.1.post0
+tqdm
+omegaconf
+dgl -f https://data.dgl.ai/wheels/torch-2.1/cu121/repo.html

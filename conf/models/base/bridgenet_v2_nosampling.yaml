@@ -1,0 +1,56 @@
+bridgenetv2:
+  _target_: models.bridgenet_v2_nosampling.Bridge_Netv2
+
+  in_ch_lists: [[8, 16], [32, 64], [64, 128], [256, 256]]
+  out_ch_lists: [[16, 32], [64, 64], [128, 128], [256, 256]]
+
+  up_in_ch_list: [512, 128, 96, 64]     
+  up_mlp_ch_lists: [[256, 128, 64], [128, 64, 64], [96, 64, 32], [64, 32, 16]]    
+
+  extractor_mode: 'bridgenet_v1'          # 'simple', 'bridgenet_v1'
+
+  # Transformer-based feature aggregator
+  agg_in_ch: [32, 64, 128, 256]                      
+  agg_out_ch: [32, 64, 256, 256]             
+
+  neigh_mode: 'ball_query'                # 'knn' or 'ball_query'
+  radius_list: [0.2, 0.4, 0.6, 0.8]
+  agg_nsample_list: [16, 16, 16, 16] 
+  extractor_nsample_list: [16, 32, 64, 64]
+          
+  out_dropout: 0.8
+  activation: 'relu'                      # activation function
+
+  sampling_method: 'rs'
+  sampling_ratio: [4, 16, 32, 64]         # point sampling ratio
+
+  f_sample_r_list: [8, 8, 8, 8]           # feature sampling ratio
+
+  # Other parameters
+  geo_ch: 10                              # dimension of pos encoding in 'legacy' mode
+  n_cls: 5                                # Now there are five parts
+  pre_norm: False                         # layer norm before
+  model_n: ${general.backbone}
+
+  pos_config:                    
+    pos_mode: 'rot_inv'                   # 'null', 'coords', 'rela', 'rot_inv'
+    normal_flag: False                    # if 'rot_inv' mode is selected, whether to include normal information or not
+    coef_d: 1                             # control the distance between neighbor to centre point
+    coef_a: 15                            # control the scale of angle 
+    angle_k: 64                           # number of neighbor used to calculate the a_embeddings
+
+  block_config: 
+    n_head: 4                             # number of head for conducting multi-head attention 
+    # dropout ratio 
+    bout_dropout: 0.0                     # dropout ratio for the output of geoatt block
+    ffn_dropout: 0.2
+    att_dropout: 0.0
+    downsample: 'maxpooling'
+
+    dense_attention:
+      q_bucket_size: 512
+      neigh_bucket_size: 4
+      eps: 1.0e-8
+      dropout: 0.0
+      training: False 
+      weight_kernal: 'substract'          # 'substract' or 'cos'

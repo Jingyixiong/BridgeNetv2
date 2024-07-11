@@ -1,0 +1,3 @@
+_target_: metrics.semantic_seg.semseg_metrics      # metrics for semantic segmentation
+n_cls: ${general.n_cls}
+per_class: False

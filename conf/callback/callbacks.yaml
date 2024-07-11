@@ -1,0 +1,11 @@
+- _target_: lightning.pytorch.callbacks.EarlyStopping
+  monitor: "test_loss"
+  patience: 30
+
+- _target_: lightning.pytorch.callbacks.LearningRateMonitor
+
+- _target_: lightning.pytorch.callbacks.ModelCheckpoint
+  monitor: "test_cls_iou"
+  mode: 'max'               # monitor the accurcay not the loss
+  save_top_k: 3             # save the best 3 models
+  

@@ -1,0 +1,33 @@
+train_dataset:
+  _target_: data_utils.MixdedDataLoader.MixedBridgePartDataset_bridgenetv1
+  syn_root: ${general.data_root}
+  data_mode: 'train'
+  total_num: ${general.total_train_num}
+  n_points: ${general.n_points}
+  syn_btype_ratio: 0.8
+
+train_dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: ${general.train_bsize}
+  shuffle: False
+  num_workers: 4
+  pin_memory: True
+  drop_last: False
+
+test_dataset:
+  _target_: data_utils.MixdedDataLoader.MixedBridgePartDataset_bridgenetv1
+  syn_root: ${general.data_root}
+  data_mode: 'test'
+  total_num: ${general.total_test_num}
+  n_points: ${general.n_points}
+  syn_btype_ratio: 0.8
+
+test_dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: ${general.test_bsize}
+  shuffle: False
+  num_workers: 4
+  pin_memory: True
+  drop_last: False
+
+

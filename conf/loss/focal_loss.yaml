@@ -1,0 +1,7 @@
+_target_: models.modules.sem_loss.FocalLoss
+gamma: 1
+# calculated based on (N-n_cls)/N, N is the total number of
+# points while n_cls is the nubmer of points for each class
+# the weight are corresponding to [spandrel, pier, arch, hole, wingwall] 
+alpha: [0.71, 0.55, 0.79, 1, 1]    
+

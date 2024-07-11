@@ -1,0 +1,11 @@
+/__pycache__/
+*/__pycache__/
+*/**/__pycache__/
+*.pyc
+
+outputs/
+results/
+.vscode/
+
+/tensorboard.ipynb
+/data
